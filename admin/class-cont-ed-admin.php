@@ -224,7 +224,6 @@ class Cont_Ed_Admin {
 
 					if ( empty($images) ) {
 						// no attachments here
-						echo "<p>Nope</p>";
 					} else {
 						foreach ( $images as $attachment_id => $attachment ) {
 							echo wp_get_attachment_image( $attachment_id, 'thumbnail' );
