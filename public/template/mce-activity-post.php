@@ -22,7 +22,15 @@ $fullwidth = get_post_meta( get_the_ID(), '_x_post_layout', true );
     if(is_user_logged_in()) {
       ?>
       <style>
-      .mce-rec p span {width: 35%; display: inline-block;}
+      .mce-rec p span {
+        width: 35%;
+        display: inline-block;
+      }
+      @media print {
+        .x-navbar-wrap, .x-sidebar.right, footer {
+          display:none;
+        }
+      }
       </style>
       <div class="x-container max width offset">
         <div class="<?php x_main_content_class(); ?>" role="main">
@@ -60,6 +68,10 @@ $fullwidth = get_post_meta( get_the_ID(), '_x_post_layout', true );
                   <p><span>User:</span><?php echo get_post_meta($post->ID, 'mce_activity_user_ID', true); ?></p>
                   <p><span>Activity Audited:</span><?php echo get_post_meta($post->ID, 'mce_activity_audit', true); ?></p>
 
+                </div>
+
+                <div class="mce-img-upload">
+                  <?php echo do_shortcode( '[fu-upload-form form_layout="media" title="Upload your supporting documents (img & pdf)"]' ); ?>
                 </div>
 
               </div>
