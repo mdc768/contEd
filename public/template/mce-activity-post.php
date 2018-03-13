@@ -14,6 +14,10 @@ $fullwidth = get_post_meta( get_the_ID(), '_x_post_layout', true );
 
 <!-- template/mce-activity-post.php -->
 
+<style>
+  .mce-more { text-align: center; }
+</style>
+
 <?php
     /* Get user info. */
     global $current_user, $wp_roles;
@@ -27,7 +31,7 @@ $fullwidth = get_post_meta( get_the_ID(), '_x_post_layout', true );
         display: inline-block;
       }
       @media print {
-        .x-navbar-wrap, .x-sidebar.right, footer {
+        .x-navbar-wrap, .x-sidebar.right, footer, .mce-img-upload {
           display:none;
         }
       }
@@ -68,11 +72,15 @@ $fullwidth = get_post_meta( get_the_ID(), '_x_post_layout', true );
                   <p><span>User:</span><?php echo get_post_meta($post->ID, 'mce_activity_user_ID', true); ?></p>
                   <p><span>Activity Audited:</span><?php echo get_post_meta($post->ID, 'mce_activity_audit', true); ?></p>
 
+                  <?php echo mce_get_images(); ?>
+
                 </div>
 
                 <div class="mce-img-upload">
-                  <?php echo do_shortcode( '[fu-upload-form form_layout="media" title="Upload your supporting documents (img & pdf)"]' ); ?>
+                  <?php echo do_shortcode( '[fu-upload-form form_layout="media" title="Upload your supporting documents" append_to_post="true"]' ); ?>
                 </div>
+
+                <p class="mce-more"><a href="/web/continuing-education/" title="go to Cont Ed listing page">Return to Continuing Education page</a></p>
 
               </div>
             <?php } else { ?>

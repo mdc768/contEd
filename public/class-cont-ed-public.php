@@ -54,7 +54,7 @@ class Cont_Ed_Public {
 
 		$this->mce_shortcodes();
 		$this->mce_templates();
-
+		$this->mce_functions();
 
 	}
 
@@ -103,6 +103,52 @@ class Cont_Ed_Public {
 		wp_enqueue_script( $this->cont_ed, plugin_dir_url( __FILE__ ) . 'js/cont-ed-public.js', array( 'jquery' ), $this->version, false );
 
 	}
+
+	/**
+	 * Add the functions
+	 *
+	 * @since    1.0.0
+	 */
+		public function mce_functions() {
+
+			/**
+     * Gets all images attached to a post
+     * @return string
+     */
+	    function mce_get_images() {
+	        global $post;
+	        $id = intval( $post->ID );
+	        $size = 'medium';
+	        $attachments = get_children( array(
+	                'post_parent' => $id,
+	                'post_status' => 'inherit',
+	                'post_type' => 'attachment',
+	                'post_mime_type' => 'image',
+	                'order' => 'ASC',
+	                'orderby' => 'menu_order'
+	            ) );
+	        if ( empty( $attachments ) )
+	                    return '';
+
+	        $output = "\n";
+	    /**
+	     * Loop through each attachment
+	     */
+	    foreach ( $attachments as $id  => $attachment ) :
+
+	        $title = esc_html( $attachment->post_title, 1 );
+	        $img = wp_get_attachment_image_src( $id, $size );
+
+	        $output .= '<a class="selector thumb" href="' . esc_url( wp_get_attachment_url( $id ) ) . '" title="' . esc_attr( $title ) . '">';
+	        $output .= '<img class="aligncenter" src="' . esc_url( $img[0] ) . '" alt="' . esc_attr( $title ) . '" title="' . esc_attr( $title ) . '" />';
+	        $output .= '</a>';
+
+	    endforeach;
+
+	        return $output;
+	    }
+
+		}
 
 	/**
 	 * Add the templates

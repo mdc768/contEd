@@ -211,7 +211,26 @@ class Cont_Ed_Admin {
 			add_meta_box("mce_category_meta", "Mandatory Continuing Ed. Category Details", "mce_category_details", "mce_category", "normal", "low");
 			add_meta_box("start_date_meta", "Start Date", "start_date", "mce_report_period", "side", "low");
 			add_meta_box("end_date_meta", "End Date", "end_date", "mce_report_period", "side", "low");
+			add_meta_box("att_thumb_meta", "Attached documents", "mce_attatched_img", "mce_activity", "side", "low");
 			//add_filter('manage_edit-mce_activity_columns', 'add_new_mce_activity_columns');
+
+			function mce_attatched_img() {
+				global $post;
+				$images =& get_children( array (
+						'post_parent' => $post->ID,
+						'post_type' => 'attachment',
+						'post_mime_type' => 'image'
+					));
+
+					if ( empty($images) ) {
+						// no attachments here
+						echo "<p>Nope</p>";
+					} else {
+						foreach ( $images as $attachment_id => $attachment ) {
+							echo wp_get_attachment_image( $attachment_id, 'thumbnail' );
+						}
+					}
+			}
 
 			function posting_date(){
 				global $post;
