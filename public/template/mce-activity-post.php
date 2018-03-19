@@ -91,11 +91,6 @@ $fullwidth = get_post_meta( get_the_ID(), '_x_post_layout', true );
                   <p><span>Activity Description:</span><?php echo get_post_meta($post->ID, 'mce_activity_desc', true); ?></p>
                   <p><span>Activity Cat:</span><?php echo $mce_cat_lit ?></p>
                   <p><span>Activity Period:</span><?php echo $mce_period_lit ?></p>
-                  <!--
-                  <p><span>Activity Cat:</span><?php echo get_post_meta($post->ID, 'mce_activity_cat_ID', true); ?></p>
-                  <p><span>Activity Period:</span><?php echo get_post_meta($post->ID, 'mce_report_period_ID', true); ?></p>
-                  <p><span>User:</span><?php echo get_post_meta($post->ID, 'mce_activity_user_ID', true); ?></p>
-                  -->
                   <p><span>Activity Audited:</span><?php echo get_post_meta($post->ID, 'mce_activity_audit', true); ?></p>
 
                   <?php echo mce_get_images(); ?>
