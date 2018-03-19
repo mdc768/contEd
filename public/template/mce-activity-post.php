@@ -59,17 +59,43 @@ $fullwidth = get_post_meta( get_the_ID(), '_x_post_layout', true );
                   <p><?php the_content(); ?></p>
 
                   <?php
-                  $post_custom_cat                   = get_post_custom($mce_activity_cat_ID);
-                  $post_custom_period                = get_post_custom($mce_report_period_ID);
+                  $mce_activity_cat_ID   = get_post_meta($post->ID, 'mce_activity_cat_ID', true);
+                  $mce_report_period_ID  = get_post_meta($post->ID, 'mce_report_period_ID', true);
+
+                  $mce_cat_list        = get_mce_cat_list();
+          			  if( $mce_cat_list ) {
+          			    foreach( $mce_cat_list as $s ) {
+          			      if( $s->ID == $mce_activity_cat_ID ) {
+          			        $mce_cat_lit = $s->post_title;
+          			      }
+          			    }
+          			  } else {
+          			    $mce_cat_lit .='Error - category not found';
+          			  }
+
+                  $mce_reporting_list = get_mce_report_list();
+                  if( $mce_reporting_list ) {
+          			    foreach( $mce_reporting_list as $s ) {
+          			      if( $s->ID == $mce_report_period_ID ) {
+          			        $mce_period_lit = $s->post_title;
+          			      }
+          			    }
+          			  } else {
+          			    $mce_period_lit .='Error - reporting period not found';
+          			  }
                   ?>
 
                   <p><span>Activity Name:</span><?php echo get_post_meta($post->ID, 'mce_activity_name', true); ?></p>
                   <p><span>Activity Hours/Instances:</span><?php echo get_post_meta($post->ID, 'mce_activity_hours', true); ?></p>
                   <p><span>Activity Date:</span><?php echo get_post_meta($post->ID, 'mce_activity_date', true); ?></p>
                   <p><span>Activity Description:</span><?php echo get_post_meta($post->ID, 'mce_activity_desc', true); ?></p>
-                  <p><span>Activity Cat:</span><?php echo get_post_meta($mce_activity_cat_ID, 'mce_activity_cat_ID', true); ?></p>
+                  <p><span>Activity Cat:</span><?php echo $mce_cat_lit ?></p>
+                  <p><span>Activity Period:</span><?php echo $mce_period_lit ?></p>
+                  <!--
+                  <p><span>Activity Cat:</span><?php echo get_post_meta($post->ID, 'mce_activity_cat_ID', true); ?></p>
                   <p><span>Activity Period:</span><?php echo get_post_meta($post->ID, 'mce_report_period_ID', true); ?></p>
                   <p><span>User:</span><?php echo get_post_meta($post->ID, 'mce_activity_user_ID', true); ?></p>
+                  -->
                   <p><span>Activity Audited:</span><?php echo get_post_meta($post->ID, 'mce_activity_audit', true); ?></p>
 
                   <?php echo mce_get_images(); ?>
